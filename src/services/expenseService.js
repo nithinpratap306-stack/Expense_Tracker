@@ -1,5 +1,5 @@
-import { SEED_EXPENSES } from '@/data/mockExpenses'
-import { validateExpenseInput } from '@/utils/expenseUtils'
+import { SEED_EXPENSES } from '../data/mockExpenses.js'
+import { validateExpenseInput } from '../utils/expenseUtils.js'
 
 const STORAGE_KEY = 'student-expense-tracker:expenses'
 const SEED_FLAG_KEY = 'student-expense-tracker:seeded'
@@ -123,4 +123,48 @@ export const expenseService = {
     localStorage.setItem(SEED_FLAG_KEY, 'true')
     return []
   },
+
+  getBudgets() {
+    try {
+      const raw = localStorage.getItem('student-expense-tracker:budgets')
+      if (raw) return JSON.parse(raw)
+    } catch {
+      // ignore
+    }
+    return {
+      monthlyLimit: 8000,
+      categories: {
+        Food: 2000,
+        Transport: 1000,
+        Education: 1500,
+        Entertainment: 1000,
+        Shopping: 1000,
+        Subscriptions: 500,
+        Accommodation: 1000,
+        Other: 1000,
+      },
+    }
+  },
+
+  saveBudgets(budgets) {
+    try {
+      localStorage.setItem('student-expense-tracker:budgets', JSON.stringify(budgets))
+    } catch {
+      // ignore
+    }
+    return budgets
+  },
+
+  resetToDefaults() {
+    localStorage.removeItem(STORAGE_KEY)
+    localStorage.removeItem(SEED_FLAG_KEY)
+    localStorage.removeItem('student-expense-tracker:budgets')
+    writeRaw(SEED_EXPENSES)
+    localStorage.setItem(SEED_FLAG_KEY, 'true')
+    return {
+      expenses: [...SEED_EXPENSES],
+      budgets: this.getBudgets(),
+    }
+  },
 }
+

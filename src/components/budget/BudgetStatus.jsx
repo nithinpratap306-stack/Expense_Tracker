@@ -1,6 +1,6 @@
 import React from 'react';
-import { CheckCircle2, AlertTriangle, AlertOctagon, HelpCircle } from 'lucide-react';
-import { cn } from '../../utils/cn';
+import { CheckCircle2, AlertTriangle, AlertOctagon } from 'lucide-react';
+import { cn } from '@/utils/cn';
 
 export function BudgetStatus({ status }) {
   if (!status) return null;
@@ -8,35 +8,35 @@ export function BudgetStatus({ status }) {
   const config = {
     good: {
       Icon: CheckCircle2,
-      border: 'border-emerald-200',
-      bg: 'bg-emerald-50/70',
-      textColor: 'text-emerald-900',
-      badgeBg: 'bg-emerald-100 text-emerald-800',
-      iconColor: 'text-emerald-600',
+      border: 'border-emerald-500/20',
+      bg: 'bg-emerald-500/10',
+      textColor: 'text-emerald-900 dark:text-emerald-300',
+      badgeBg: 'bg-emerald-500/20 text-emerald-800 dark:text-emerald-200',
+      iconColor: 'text-emerald-600 dark:text-emerald-400',
     },
     warning: {
       Icon: AlertTriangle,
-      border: 'border-amber-200',
-      bg: 'bg-amber-50/70',
-      textColor: 'text-amber-900',
-      badgeBg: 'bg-amber-100 text-amber-800',
-      iconColor: 'text-amber-600',
+      border: 'border-amber-500/20',
+      bg: 'bg-amber-500/10',
+      textColor: 'text-amber-900 dark:text-amber-300',
+      badgeBg: 'bg-amber-500/20 text-amber-800 dark:text-amber-200',
+      iconColor: 'text-amber-600 dark:text-amber-400',
     },
     danger: {
       Icon: AlertOctagon,
-      border: 'border-orange-200',
-      bg: 'bg-orange-50/70',
-      textColor: 'text-orange-900',
-      badgeBg: 'bg-orange-100 text-orange-800',
-      iconColor: 'text-orange-600',
+      border: 'border-orange-500/20',
+      bg: 'bg-orange-500/10',
+      textColor: 'text-orange-900 dark:text-orange-300',
+      badgeBg: 'bg-orange-500/20 text-orange-800 dark:text-orange-200',
+      iconColor: 'text-orange-600 dark:text-orange-400',
     },
     exceeded: {
       Icon: AlertOctagon,
-      border: 'border-rose-200',
-      bg: 'bg-rose-50/70',
-      textColor: 'text-rose-900',
-      badgeBg: 'bg-rose-100 text-rose-800',
-      iconColor: 'text-rose-600',
+      border: 'border-destructive/20',
+      bg: 'bg-destructive/10',
+      textColor: 'text-destructive-foreground dark:text-destructive',
+      badgeBg: 'bg-destructive/20 text-destructive',
+      iconColor: 'text-destructive',
     }
   };
 
@@ -51,7 +51,7 @@ export function BudgetStatus({ status }) {
         item.border
       )}
     >
-      <div className={cn("p-2 rounded-xl bg-white shadow-xs shrink-0", item.iconColor)}>
+      <div className={cn("p-2 rounded-xl bg-card shadow-xs shrink-0 border border-border", item.iconColor)}>
         <Icon className="w-5 h-5" />
       </div>
 

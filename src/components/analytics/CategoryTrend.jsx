@@ -9,8 +9,8 @@ import {
   ResponsiveContainer,
   Legend
 } from 'recharts';
-import { Card, CardHeader, CardTitle, CardDescription } from '../ui/Card';
-import { formatCurrency } from '../../utils/formatters';
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
+import { formatCurrency } from '@/utils/formatters';
 
 function CategoryTrendTooltip({ active, payload, label }) {
   if (active && payload && payload.length) {
@@ -33,7 +33,6 @@ function CategoryTrendTooltip({ active, payload, label }) {
 }
 
 export function CategoryTrend({ expenses = [], categories = [] }) {
-  // Select top 3 categories by total spend to keep the chart clean and readable
   const topCategories = useMemo(() => {
     return [...categories]
       .filter(c => c.amount > 0)
@@ -41,7 +40,6 @@ export function CategoryTrend({ expenses = [], categories = [] }) {
       .slice(0, 3);
   }, [categories]);
 
-  // Aggregate weekly spending per top category
   const timelineData = useMemo(() => {
     const weeks = [
       { week: 'Week 1', start: 1, end: 7 },
@@ -72,7 +70,7 @@ export function CategoryTrend({ expenses = [], categories = [] }) {
 
   return (
     <Card className="flex flex-col">
-      <CardHeader>
+      <CardHeader className="pb-2">
         <div>
           <CardTitle>Category Trend Over Time</CardTitle>
           <CardDescription>
@@ -81,13 +79,13 @@ export function CategoryTrend({ expenses = [], categories = [] }) {
         </div>
       </CardHeader>
 
-      <div className="h-72 w-full pt-2">
+      <CardContent className="h-72 w-full pt-2">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
             data={timelineData}
             margin={{ top: 10, right: 20, left: -20, bottom: 0 }}
           >
-            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#F1F5F9" />
+            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(148, 163, 184, 0.15)" />
             <XAxis
               dataKey="week"
               tickLine={false}
@@ -120,7 +118,7 @@ export function CategoryTrend({ expenses = [], categories = [] }) {
             ))}
           </LineChart>
         </ResponsiveContainer>
-      </div>
+      </CardContent>
     </Card>
   );
 }

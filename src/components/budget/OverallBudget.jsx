@@ -1,8 +1,8 @@
 import React from 'react';
-import { Target, Edit3, Sparkles } from 'lucide-react';
-import { Card } from '../ui/Card';
-import { Button } from '../ui/Button';
-import { formatCurrency, formatPercent } from '../../utils/formatters';
+import { Target, Edit3 } from 'lucide-react';
+import { Card } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { formatCurrency, formatPercent } from '@/utils/formatters';
 
 export function OverallBudget({
   monthlyBudget = 8000,
@@ -28,11 +28,11 @@ export function OverallBudget({
   else ringColor = "#10B981";
 
   return (
-    <Card className="flex flex-col md:flex-row items-center justify-between gap-6 p-6 sm:p-8 bg-gradient-to-br from-white via-white to-indigo-50/30">
+    <Card className="flex flex-col md:flex-row items-center justify-between gap-6 p-6 sm:p-8 bg-card border border-border">
       {/* Metric details */}
       <div className="space-y-4 flex-1 text-center md:text-left w-full">
         <div className="flex items-center justify-between md:justify-start gap-3">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-50 text-indigo-700 text-xs font-bold border border-indigo-200/60">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-accent text-accent-foreground text-xs font-bold border border-border">
             <Target className="w-3.5 h-3.5" />
             <span>September Monthly Budget</span>
           </div>
@@ -49,27 +49,27 @@ export function OverallBudget({
         </div>
 
         <div>
-          <p className="text-xs font-medium text-slate-500 uppercase tracking-wider">
+          <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
             Total Monthly Allowance
           </p>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mt-0.5">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-foreground tracking-tight mt-0.5">
             {formatCurrency(monthlyBudget)}
           </h2>
         </div>
 
         <div className="grid grid-cols-2 gap-3 pt-2 max-w-sm mx-auto md:mx-0">
-          <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
-            <span className="text-[11px] font-semibold text-slate-500 block">Total Spent</span>
-            <span className="text-base sm:text-lg font-bold text-slate-900">
+          <div className="p-3 rounded-xl bg-muted/60 border border-border">
+            <span className="text-[11px] font-semibold text-muted-foreground block">Total Spent</span>
+            <span className="text-base sm:text-lg font-bold text-foreground">
               {formatCurrency(totalSpent)}
             </span>
           </div>
 
-          <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
-            <span className="text-[11px] font-semibold text-slate-500 block">
+          <div className="p-3 rounded-xl bg-muted/60 border border-border">
+            <span className="text-[11px] font-semibold text-muted-foreground block">
               {isOver ? "Over Budget" : "Remaining"}
             </span>
-            <span className={`text-base sm:text-lg font-bold ${isOver ? "text-rose-600" : "text-emerald-600"}`}>
+            <span className={`text-base sm:text-lg font-bold ${isOver ? "text-destructive" : "text-emerald-600 dark:text-emerald-400"}`}>
               {formatCurrency(Math.abs(remainingBudget))}
             </span>
           </div>
@@ -85,7 +85,7 @@ export function OverallBudget({
         >
           {/* Background track */}
           <circle
-            stroke="#E2E8F0"
+            stroke="rgba(148, 163, 184, 0.2)"
             fill="transparent"
             strokeWidth={stroke}
             r={normalizedRadius}
@@ -108,10 +108,10 @@ export function OverallBudget({
         </svg>
 
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center pointer-events-none">
-          <span className="text-xl sm:text-2xl font-black text-slate-900">
+          <span className="text-xl sm:text-2xl font-black text-foreground">
             {formatPercent(percentUsed, 0)}
           </span>
-          <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">
+          <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
             Used
           </span>
         </div>

@@ -1,10 +1,9 @@
 import React, { useMemo } from 'react';
-import { Lightbulb, TrendingDown, ShieldCheck, ArrowRight } from 'lucide-react';
-import { Card, CardHeader, CardTitle, CardDescription } from '../ui/Card';
-import { formatCurrency, formatPercent } from '../../utils/formatters';
+import { Lightbulb } from 'lucide-react';
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
+import { formatCurrency, formatPercent } from '@/utils/formatters';
 
 export function BudgetRecommendations({ categories = [], monthlyBudget = 8000, totalSpent = 0 }) {
-  // Generate deterministic student-friendly recommendations
   const recommendations = useMemo(() => {
     const list = [];
     const food = categories.find(c => c.category === 'Food');
@@ -70,7 +69,7 @@ export function BudgetRecommendations({ categories = [], monthlyBudget = 8000, t
 
   return (
     <Card className="flex flex-col">
-      <CardHeader>
+      <CardHeader className="pb-2">
         <div>
           <CardTitle className="flex items-center gap-2">
             <span>Budget Recommendations</span>
@@ -82,26 +81,28 @@ export function BudgetRecommendations({ categories = [], monthlyBudget = 8000, t
         </div>
       </CardHeader>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {recommendations.map((rec) => (
-          <div
-            key={rec.id}
-            className="p-4 rounded-xl border border-slate-100 bg-slate-50/50 hover:bg-slate-50 transition-colors flex items-start gap-3"
-          >
-            <div className="w-8 h-8 rounded-lg bg-white border border-slate-200/80 flex items-center justify-center text-base shrink-0 shadow-xs">
-              {rec.icon}
+      <CardContent className="pt-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {recommendations.map((rec) => (
+            <div
+              key={rec.id}
+              className="p-4 rounded-xl border border-border bg-muted/40 hover:bg-muted/70 transition-colors flex items-start gap-3"
+            >
+              <div className="w-8 h-8 rounded-lg bg-card border border-border flex items-center justify-center text-base shrink-0 shadow-xs">
+                {rec.icon}
+              </div>
+              <div className="min-w-0">
+                <h4 className="text-xs sm:text-sm font-bold text-foreground mb-1">
+                  {rec.title}
+                </h4>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  {rec.description}
+                </p>
+              </div>
             </div>
-            <div className="min-w-0">
-              <h4 className="text-xs sm:text-sm font-bold text-slate-900 mb-1">
-                {rec.title}
-              </h4>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                {rec.description}
-              </p>
-            </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      </CardContent>
     </Card>
   );
 }

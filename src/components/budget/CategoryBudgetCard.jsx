@@ -1,8 +1,8 @@
 import React from 'react';
 import { AlertTriangle, CheckCircle2 } from 'lucide-react';
-import { Card } from '../ui/Card';
-import { ProgressBar } from '../ui/ProgressBar';
-import { formatCurrency, formatPercent } from '../../utils/formatters';
+import { Card } from '@/components/ui/card';
+import { ProgressBar } from '@/components/ui/ProgressBar';
+import { formatCurrency, formatPercent } from '@/utils/formatters';
 
 export function CategoryBudgetCard({ category, onEditClick }) {
   const {
@@ -10,32 +10,29 @@ export function CategoryBudgetCard({ category, onEditClick }) {
     emoji,
     amount,
     limit,
-    percentage,
     percentOfBudget,
     remaining,
     isOverBudget,
     bgColor,
-    borderColor
   } = category;
 
   const hasLimit = limit > 0;
-  const clampedPercent = hasLimit ? Math.min(100, percentOfBudget) : 0;
 
   return (
-    <Card className="flex flex-col justify-between hover:border-slate-300 transition-all p-5">
+    <Card className="flex flex-col justify-between hover:border-primary/40 transition-all p-5">
       <div>
         {/* Header with Emoji and Status Pill */}
         <div className="flex items-center justify-between gap-2 mb-3">
           <div className="flex items-center gap-2.5">
             <span
-              className="w-10 h-10 rounded-xl flex items-center justify-center text-lg border shrink-0"
-              style={{ backgroundColor: bgColor, borderColor: borderColor }}
+              className="w-10 h-10 rounded-xl flex items-center justify-center text-lg border border-border shrink-0"
+              style={{ backgroundColor: bgColor }}
             >
               {emoji}
             </span>
             <div>
-              <h4 className="text-sm font-bold text-slate-900">{name}</h4>
-              <p className="text-[11px] text-slate-400">
+              <h4 className="text-sm font-bold text-foreground">{name}</h4>
+              <p className="text-[11px] text-muted-foreground">
                 {hasLimit ? `Target: ${formatCurrency(limit)}` : 'No limit set'}
               </p>
             </div>
@@ -45,10 +42,10 @@ export function CategoryBudgetCard({ category, onEditClick }) {
             <span
               className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${
                 isOverBudget
-                  ? 'bg-rose-50 text-rose-700 border-rose-200'
+                  ? 'bg-destructive/10 text-destructive border-destructive/20'
                   : percentOfBudget >= 85
-                  ? 'bg-amber-50 text-amber-800 border-amber-200'
-                  : 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                  ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20'
+                  : 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20'
               }`}
             >
               {isOverBudget ? 'Exceeded' : `${formatPercent(percentOfBudget, 0)} used`}
@@ -59,10 +56,10 @@ export function CategoryBudgetCard({ category, onEditClick }) {
         {/* Numbers Comparison */}
         <div className="my-3">
           <div className="flex items-baseline justify-between">
-            <span className="text-xl font-extrabold text-slate-900">
+            <span className="text-xl font-extrabold text-foreground">
               {formatCurrency(amount)}
             </span>
-            <span className="text-xs text-slate-400">
+            <span className="text-xs text-muted-foreground">
               of {hasLimit ? formatCurrency(limit) : '∞'}
             </span>
           </div>
@@ -74,10 +71,10 @@ export function CategoryBudgetCard({ category, onEditClick }) {
               size="sm"
               color={
                 isOverBudget
-                  ? "bg-rose-500"
+                  ? "bg-destructive"
                   : percentOfBudget >= 85
                   ? "bg-amber-500"
-                  : "bg-indigo-600"
+                  : "bg-primary"
               }
             />
           </div>
@@ -85,28 +82,28 @@ export function CategoryBudgetCard({ category, onEditClick }) {
       </div>
 
       {/* Footer Remaining / Over status */}
-      <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+      <div className="pt-3 border-t border-border flex items-center justify-between text-xs">
         {hasLimit ? (
           isOverBudget ? (
-            <span className="text-rose-600 font-bold flex items-center gap-1">
+            <span className="text-destructive font-bold flex items-center gap-1">
               <AlertTriangle className="w-3.5 h-3.5" />
-              <span>{formatCurrency(Math.abs(remaining))} over budget</span>
+              <span>{formatCurrency(Math.abs(remaining))} over</span>
             </span>
           ) : (
-            <span className="text-emerald-700 font-medium flex items-center gap-1">
+            <span className="text-emerald-600 dark:text-emerald-400 font-medium flex items-center gap-1">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
-              <span>{formatCurrency(remaining)} remaining</span>
+              <span>{formatCurrency(remaining)} left</span>
             </span>
           )
         ) : (
-          <span className="text-slate-400">No cap configured</span>
+          <span className="text-muted-foreground">No cap set</span>
         )}
 
         {onEditClick && (
           <button
             type="button"
             onClick={() => onEditClick(category)}
-            className="text-xs font-semibold text-indigo-600 hover:text-indigo-800 transition-colors cursor-pointer"
+            className="text-xs font-semibold text-primary hover:underline transition-colors cursor-pointer"
           >
             Adjust
           </button>

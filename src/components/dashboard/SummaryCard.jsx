@@ -1,6 +1,6 @@
 import React from 'react';
-import { Card } from '../ui/Card';
-import { cn } from '../../utils/cn';
+import { Card } from '@/components/ui/card';
+import { cn } from '@/utils/cn';
 
 export function SummaryCard({
   title,
@@ -14,27 +14,27 @@ export function SummaryCard({
   valueClassName
 }) {
   const badgeColors = {
-    positive: 'bg-emerald-50 text-emerald-700 border-emerald-200/60',
-    negative: 'bg-rose-50 text-rose-700 border-rose-200/60',
-    warning: 'bg-amber-50 text-amber-800 border-amber-200/60',
-    neutral: 'bg-slate-100 text-slate-700 border-slate-200',
-    indigo: 'bg-indigo-50 text-indigo-700 border-indigo-200/60',
+    positive: 'bg-emerald-50 text-emerald-700 border-emerald-200/60 dark:bg-emerald-950/40 dark:text-emerald-400 dark:border-emerald-800/60',
+    negative: 'bg-rose-50 text-rose-700 border-rose-200/60 dark:bg-rose-950/40 dark:text-rose-400 dark:border-rose-800/60',
+    warning: 'bg-amber-50 text-amber-800 border-amber-200/60 dark:bg-amber-950/40 dark:text-amber-400 dark:border-amber-800/60',
+    neutral: 'bg-muted text-muted-foreground border-border',
+    indigo: 'bg-accent text-accent-foreground border-border',
   };
 
   return (
-    <Card className={cn("flex flex-col justify-between h-full relative overflow-hidden", className)}>
+    <Card className={cn("flex flex-col justify-between h-full relative overflow-hidden p-5 sm:p-6", className)}>
       <div>
         <div className="flex items-center justify-between gap-2 mb-2">
-          <span className="text-xs sm:text-sm font-medium text-slate-500">{title}</span>
+          <span className="text-xs sm:text-sm font-medium text-muted-foreground">{title}</span>
           {Icon && (
-            <div className="w-8 h-8 rounded-xl bg-slate-100/80 flex items-center justify-center text-slate-600">
+            <div className="w-8 h-8 rounded-xl bg-muted/80 flex items-center justify-center text-foreground">
               <Icon className="w-4 h-4" />
             </div>
           )}
         </div>
 
         <div className="mt-1">
-          <h2 className={cn("text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight", valueClassName)}>
+          <h2 className={cn("text-2xl sm:text-3xl font-extrabold text-foreground tracking-tight", valueClassName)}>
             {value}
           </h2>
         </div>
@@ -43,9 +43,9 @@ export function SummaryCard({
       <div className="mt-3">
         {progress !== undefined && (
           <div className="mb-2">
-            <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+            <div className="w-full bg-muted h-2 rounded-full overflow-hidden">
               <div
-                className="bg-indigo-600 h-full rounded-full transition-all duration-500"
+                className="bg-primary h-full rounded-full transition-all duration-500"
                 style={{ width: `${Math.min(100, Math.max(0, progress))}%` }}
               />
             </div>
@@ -64,7 +64,7 @@ export function SummaryCard({
             </span>
           )}
           {subtitle && (
-            <span className="text-xs text-slate-500">{subtitle}</span>
+            <span className="text-xs text-muted-foreground">{subtitle}</span>
           )}
         </div>
       </div>
