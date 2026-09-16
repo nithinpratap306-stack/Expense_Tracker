@@ -9,7 +9,6 @@ import {
   User,
   Settings,
   GraduationCap,
-  Sparkles,
   RotateCcw
 } from 'lucide-react';
 import { useExpenses } from '../../context/ExpenseContext';

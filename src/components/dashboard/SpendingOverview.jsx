@@ -75,7 +75,7 @@ export function SpendingOverview({ expenses = [] }) {
         </div>
       </CardHeader>
 
-      <CardContent className="h-72 w-full pt-2">
+      <CardContent className="flex-1 min-h-[340px] w-full pt-2 pb-4">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart
             data={chartData}

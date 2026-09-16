@@ -112,24 +112,28 @@ export function Dashboard() {
       <SpendingInsight insight={spendingInsight} />
 
       {/* 3. Spending Overview Chart + 4. Category Breakdown */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
+        <div className="lg:col-span-2 flex flex-col">
           <SpendingOverview expenses={currentMonthExpenses} />
         </div>
-        <div className="lg:col-span-1">
+        <div className="lg:col-span-1 flex flex-col">
           <CategoryBreakdown categories={categoryBreakdown} />
         </div>
       </div>
 
       {/* 5. Budget Progress + 6. Recent Spending */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <BudgetProgress
-          totalSpent={totalSpent}
-          monthlyBudget={monthlyBudget}
-          percentUsed={percentUsed}
-          categories={categoryBreakdown}
-        />
-        <RecentSpending expenses={currentMonthExpenses} maxItems={5} />
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
+        <div className="flex flex-col">
+          <BudgetProgress
+            totalSpent={totalSpent}
+            monthlyBudget={monthlyBudget}
+            percentUsed={percentUsed}
+            categories={categoryBreakdown}
+          />
+        </div>
+        <div className="flex flex-col">
+          <RecentSpending expenses={currentMonthExpenses} maxItems={5} />
+        </div>
       </div>
     </div>
   );
